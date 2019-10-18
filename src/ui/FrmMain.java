@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,7 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
@@ -127,7 +125,7 @@ public class FrmMain extends JFrame implements ActionListener {
 		setButton(btnAccount);
 		setButton(btnEmployeeAD);
 		setButton(btnOrder);
-		
+
 		setButton(btnStock);
 		setButton(btnReceipt);
 		setButton(btnStatistic);
@@ -178,9 +176,9 @@ public class FrmMain extends JFrame implements ActionListener {
 			System.exit(0);
 		} else if (obj.equals(btnLogout)) {
 			lockButton();
-		} else if(obj.equals(btnEmployeeAD)) {
+		} else if (obj.equals(btnEmployeeAD)) {
 			new FrmEmployee("temp").setVisible(true);
-		} else if(obj.equals(btnOrder)) {
+		} else if (obj.equals(btnOrder)) {
 			new FrmOrder().setVisible(true);
 		}
 	}
@@ -196,6 +194,7 @@ public class FrmMain extends JFrame implements ActionListener {
 		btnOrder.setEnabled(false);
 		btnStock.setEnabled(false);
 	}
+
 	private void unlockButton() {
 		btnLogin.setEnabled(false);
 		btnLogout.setContentAreaFilled(true);
