@@ -30,8 +30,6 @@ public class FrmOrder extends JFrame {
 	JTextField txtId, txtUserName, txtPass;
 	JTextField txtSearch, txtQuantity, txtPrice;
 	
-
-	JLabel lblId, lblUserName, lblPass, lblType, lblStartingDate, lblStatus, lblActive, lblNoActive;
 	JLabel lblSearch, lblName, lblQuantity, lblPrice;
 
 	JComboBox<String> cbbName;

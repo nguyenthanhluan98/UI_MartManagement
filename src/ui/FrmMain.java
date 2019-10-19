@@ -104,7 +104,7 @@ public class FrmMain extends JFrame implements ActionListener {
 
 		b.add(b1 = Box.createHorizontalBox());
 		b.add(Box.createVerticalStrut(80));
-		b1.add(btnOrder = new JButton("Mua hàng"));
+		b1.add(btnOrder = new JButton("Quản lý bán hàng"));
 		btnOrder.setIcon(new ImageIcon("resources/icon/mainframe/money_inactive.png"));
 		b1.add(Box.createHorizontalStrut(150));
 		b1.add(btnReceipt = new JButton("Hóa đơn"));
@@ -139,6 +139,7 @@ public class FrmMain extends JFrame implements ActionListener {
 		btnLogout.addActionListener(this);
 		btnEmployeeAD.addActionListener(this);
 		btnOrder.addActionListener(this);
+		btnStock.addActionListener(this);
 	}
 
 	private void setButton(JButton jb) {
@@ -181,7 +182,9 @@ public class FrmMain extends JFrame implements ActionListener {
 		} else if(obj.equals(btnEmployeeAD)) {
 			new FrmEmployee("temp").setVisible(true);
 		} else if(obj.equals(btnOrder)) {
-			new FrmOrder().setVisible(true);
+			new Gui_Employee().setVisible(true);
+		} else if(obj.equals(btnStock)) {
+			//new Gui_Employee().setVisible(true);
 		}
 	}
 
