@@ -1,0 +1,210 @@
+package ui;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
+
+public class Gui_Manager extends JFrame {
+
+	JButton acc_btnLogout, acc_btnHelp;
+
+	// Manganer tab
+
+	JTabbedPane tabManager;
+
+	// ----- Form Account
+
+	JTextField txtAccId, txtAccUserName, txtAccPass;
+	JTextField txtAccSearch;
+	JDateChooser txtAccStartingDate;
+	JRadioButton radAccActive, radAccNoActive;
+	ButtonGroup grAccStatus;
+
+	JTable tableAccount;
+	DefaultTableModel tblModelAccount;
+	//
+
+	JLabel lblAccId, lblAccUserName, lblAccPass, lblAccType, lblAccStartingDate, lblAccStatus, lblAccActive,
+			lblAccNoActive;
+
+	JButton acc_btnAdd_Acc, acc_btnRemove_Acc, acc_btnModify_Acc, acc_btnSave_Acc, acc_btnSearch_Acc;
+
+	public Gui_Manager() {
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(1100, 700);
+		setResizable(true);
+		setTitle("Form Quản lý");
+		setIconImage(new ImageIcon(getClass()
+				.getResource("/ima/if_H_sign_hospital_hospital_sign_hospital__medical__road_sign_1887039.png"))
+						.getImage());
+		Box acc_bt = Box.createVerticalBox();// Cái này là quản lý chung của cả frame
+		/**
+		 * Cái này là tiêu đ�?
+		 */
+
+		////////////////////////////////
+		Box acc_b1 = Box.createHorizontalBox();
+		acc_b1.setMaximumSize(getMaximumSize());
+		acc_b1.add(Box.createHorizontalStrut(20));
+		acc_b1.add(new JLabel(
+				new ImageIcon(getClass().getResource("/ima/if_cv_job_seeker_employee_unemployee_work_2620524.png"))));
+		acc_b1.add(Box.createHorizontalStrut(10));
+
+		acc_b1.add(Box.createHorizontalStrut(400));
+		acc_b1.add(acc_btnLogout = new JButton("Đăng Xuất",
+				new ImageIcon(getClass().getResource("/ima/if_Logout_105217.png"))));
+		acc_bt.add(Box.createVerticalStrut(10));
+		acc_b1.add(Box.createHorizontalStrut(10));
+		acc_b1.add(acc_btnHelp = new JButton("Trợ giúp",
+				new ImageIcon(getClass().getResource("/ima/if_user_help_1902262.png"))));
+
+		acc_bt.add(acc_b1); // add button help, logout to Account Box
+		acc_bt.add(Box.createVerticalStrut(0));
+
+		// form quản lý nhân viên
+		Box acc_bqlbn = Box.createVerticalBox(); // acc_bqlbn: Box quản lý nhân viên
+
+		Box acc_bqlbn1 = Box.createHorizontalBox(); // acc_bqlbn1 là box để quản lý text field
+
+		Box acc_bqlbn1_Acc = Box.createVerticalBox();
+		acc_bqlbn1_Acc.setBorder(BorderFactory.createTitledBorder("Thông tin nhân viên"));
+
+		// id, username, pass, start, status
+
+		// textfield ID
+		Box acc_bqlbn1_Acc_Id = Box.createHorizontalBox();
+		acc_bqlbn1_Acc_Id.add(new JLabel("Mã nhân viên: "));
+		acc_bqlbn1_Acc_Id.add(Box.createHorizontalStrut(20));// Khoảng cách giữa chữ và textfield
+		acc_bqlbn1_Acc_Id.add(txtAccId = new JTextField());
+		txtAccId.setPreferredSize(getPreferredSize());
+
+		// textfield UserName
+		Box acc_bqlbn1_Acc_US = Box.createHorizontalBox();
+		acc_bqlbn1_Acc_US.add(new JLabel("Tên tài khoản: "));
+		acc_bqlbn1_Acc_US.add(Box.createHorizontalStrut(60));
+		acc_bqlbn1_Acc_US.add(txtAccUserName = new JTextField());
+		// cbbName.setPreferredSize(getPreferredSize());
+
+		// textfield PassWord
+		Box acc_bqlbn1_Acc_Pass = Box.createHorizontalBox();
+		acc_bqlbn1_Acc_Pass.add(new JLabel("Mật khẩu: "));
+		acc_bqlbn1_Acc_Pass.add(Box.createHorizontalStrut(90));
+		acc_bqlbn1_Acc_Pass.add(txtAccPass = new JTextField());
+		// txtQuantity.setPreferredSize(getPreferredSize());
+
+		// textfield StartingDate
+		Box acc_bqlbn1_Acc_Start = Box.createHorizontalBox();
+		acc_bqlbn1_Acc_Start.add(new JLabel("Ngày bắt đầu: "));
+		acc_bqlbn1_Acc_Start.add(Box.createHorizontalStrut(120));
+		acc_bqlbn1_Acc_Start.add(txtAccStartingDate = new JDateChooser());
+		// txtPrice.setPreferredSize(getPreferredSize());
+
+		// textfield Status
+		Box acc_bqlbn1_Acc_Status = Box.createHorizontalBox();
+		acc_bqlbn1_Acc_Status.add(new JLabel("Trạng thái: "));
+		acc_bqlbn1_Acc_Status.add(Box.createHorizontalStrut(120));
+		acc_bqlbn1_Acc_Status.add(radAccActive = new JRadioButton("Active"));
+		acc_bqlbn1_Acc_Status.add(Box.createHorizontalStrut(10));
+		acc_bqlbn1_Acc_Status.add(radAccNoActive = new JRadioButton("No"));
+
+		grAccStatus = new ButtonGroup();
+		grAccStatus.add(radAccActive);
+		grAccStatus.add(radAccNoActive);
+
+		
+		// add khoảng khoảng cách giữa textfield
+		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_Id);
+		acc_bqlbn1_Acc.add(Box.createVerticalStrut(5));
+		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_US);
+		acc_bqlbn1_Acc.add(Box.createVerticalStrut(10));
+		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_Pass);
+		acc_bqlbn1_Acc.add(Box.createVerticalStrut(5));
+		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_Start);
+		acc_bqlbn1_Acc.add(Box.createVerticalStrut(5));
+		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_Status);
+		
+		
+
+		acc_bqlbn1.add(Box.createHorizontalStrut(10));
+		acc_bqlbn.add(acc_bqlbn1);
+
+		Box acc_bqlbn2_ChucNang = Box.createVerticalBox(); // acc_bqlbn2_ChucNang là quản lý dòng các nút chức năng
+
+		acc_bqlbn2_ChucNang.setBorder(BorderFactory.createTitledBorder("Chức năng"));
+		acc_bqlbn2_ChucNang.setMaximumSize(getMaximumSize());
+
+		Box acc_bqlbn2_ChucNang_1 = Box.createHorizontalBox();
+		acc_bqlbn2_ChucNang_1.add(Box.createHorizontalStrut(10));
+		acc_bqlbn2_ChucNang_1.add(
+				acc_btnAdd_Acc = new JButton("Thêm", new ImageIcon(getClass().getResource("/ima/if_7_330410.png"))));
+		acc_btnAdd_Acc.setMaximumSize(getMaximumSize());
+		acc_bqlbn2_ChucNang_1.add(Box.createHorizontalStrut(10));
+		acc_bqlbn2_ChucNang_1.add(acc_btnModify_Acc = new JButton("Cập nhật",
+				new ImageIcon(getClass().getResource("/ima/if_brush-pencil_1055103.png"))));
+		acc_btnModify_Acc.setMaximumSize(getMaximumSize());
+		acc_bqlbn2_ChucNang_1.add(Box.createHorizontalStrut(10));
+		acc_bqlbn2_ChucNang_1.add(acc_btnRemove_Acc = new JButton("Xoá",
+				new ImageIcon(getClass().getResource("/ima/if_Save_1493294.png"))));
+		acc_btnRemove_Acc.setMaximumSize(getMaximumSize());
+		acc_bqlbn2_ChucNang_1.add(Box.createHorizontalStrut(10));
+		acc_bqlbn2_ChucNang_1.add(acc_btnSave_Acc = new JButton("Lưu",
+				new ImageIcon(getClass().getResource("/ima/if_receipt_3583272.png"))));
+		acc_btnSave_Acc.setMaximumSize(getMaximumSize());
+
+		acc_bqlbn2_ChucNang.add(acc_bqlbn2_ChucNang_1);
+
+		Box acc_bqlbn3_Danhsach = Box.createVerticalBox(); // acc_bqlbn3_Danhsach_Acc là quản lý cái bảng danh
+																// sách
+
+		acc_bqlbn3_Danhsach.setBorder(BorderFactory.createTitledBorder("Danh sách nhân viên"));
+		Box acc_bqlbn3_Danhsach_Acc_1 = Box.createHorizontalBox();
+
+		String[] headers = "Mã nhân viên; Tên tài khoản; Mật khẩu; Ngày bắt đầu; Trạng thái".split(";");
+		tblModelAccount = new DefaultTableModel(headers, 0);
+		acc_bqlbn3_Danhsach_Acc_1.add(new JScrollPane(tableAccount = new JTable(tblModelAccount)));
+		tableAccount.setDefaultEditor(Object.class, null);
+		acc_bqlbn3_Danhsach.add(acc_bqlbn3_Danhsach_Acc_1);
+
+		acc_bqlbn1.add(acc_bqlbn1_Acc); // add box gồm các textfield
+		acc_bqlbn.add(acc_bqlbn2_ChucNang); // add buttons
+		acc_bqlbn.add(acc_bqlbn3_Danhsach); // add table
+
+		acc_bt.add(acc_bqlbn);
+		add(acc_bt);
+
+		tabManager = new JTabbedPane();
+		tabManager.addTab("Quản lý nhân viên", acc_bt);
+		tabManager.setTabPlacement(JTabbedPane.LEFT);
+
+		add(tabManager);
+	}
+
+	public static void main(String[] args) {
+		new Gui_Manager().setVisible(true);
+	}
+}

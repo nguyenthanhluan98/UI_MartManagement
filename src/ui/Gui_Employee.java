@@ -1,5 +1,7 @@
 package ui;
 
+
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -56,7 +58,7 @@ public class Gui_Employee extends JFrame {
 	JLabel lblSearch, lblName, lblQuantity, lblPrice;
 	JButton btnSearch;
 	JComboBox<String> cbbName;
-	JButton btnAdd, btnRemove, btnModify, btnSave, btnIcon, btnLogout;
+	JButton btnAdd, btnRemove, btnModify, btnSave, btnIcon, btnLogout,btnin;
 	///////////////
 
 	private JTabbedPane tbp;
@@ -69,12 +71,10 @@ public class Gui_Employee extends JFrame {
 	private JButton btnHelp;
 
 	public Gui_Employee() {
-		// this.nhanVien = nhanVien;
-		// nhanVienNhanBenhDaos = new NhanVienNhanBenhDaos();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1100, 700);
 		setResizable(true);
-		setTitle("Nhân Viên Nhận Bệnh");
+		setTitle("Nhân Viên Bán Hàng");
 		setIconImage(new ImageIcon(getClass()
 				.getResource("/ima/if_H_sign_hospital_hospital_sign_hospital__medical__road_sign_1887039.png"))
 						.getImage());
@@ -89,9 +89,7 @@ public class Gui_Employee extends JFrame {
 		b1.add(new JLabel(
 				new ImageIcon(getClass().getResource("/ima/if_cv_job_seeker_employee_unemployee_work_2620524.png"))));
 		b1.add(Box.createHorizontalStrut(10));
-		// b1.add(lblTenDn = new JLabel(nhanVien.getHo() + " " + nhanVien.getTen()));
-		// lblTenDn.setFont(new Font("Times new Roman", Font.BOLD, 20));
-		// lblTenDn.setForeground(Color.RED);
+		
 		b1.add(Box.createHorizontalStrut(400));
 		b1.add(btnLogout = new JButton("Đăng Xuất",
 				new ImageIcon(getClass().getResource("/ima/if_Logout_105217.png"))));
@@ -100,7 +98,7 @@ public class Gui_Employee extends JFrame {
 		b1.add(btnHelp = new JButton("Trợ giúp",
 				new ImageIcon(getClass().getResource("/ima/if_user_help_1902262.png"))));
 		bt.add(b1);
-		bt.add(Box.createVerticalStrut(10));
+		bt.add(Box.createVerticalStrut(0));
 		/////////////////////////////////
 		/**
 		 * Cái này là quản lý bệnh nhân
@@ -110,7 +108,7 @@ public class Gui_Employee extends JFrame {
 
 		Box bqlbn1 = Box.createHorizontalBox(); // bqlbn1 là box để quản lý dòng trên cùng
 		Box bqlbn1_ThongTin = Box.createVerticalBox();
-		bqlbn1_ThongTin.setBorder(BorderFactory.createTitledBorder("Thông tin bệnh nhân"));
+		bqlbn1_ThongTin.setBorder(BorderFactory.createTitledBorder("Thông tin nhân viên"));
 
 		Box bqlbn1_ThongTin_IdBN = Box.createHorizontalBox();
 		bqlbn1_ThongTin_IdBN.add(new JLabel("Tên sản phẩm cần tìm: "));
@@ -123,7 +121,7 @@ public class Gui_Employee extends JFrame {
 		Box bqlbn1_ThongTin_Ho = Box.createHorizontalBox();
 		bqlbn1_ThongTin_Ho.add(new JLabel("Tên sản phẩm: "));
 		bqlbn1_ThongTin_Ho.add(Box.createHorizontalStrut(60));
-		bqlbn1_ThongTin_Ho.add(cbbName = new JComboBox<>());
+		bqlbn1_ThongTin_Ho.add(cbbName = new JComboBox<String>());
 		// cbbName.setPreferredSize(getPreferredSize());
 
 		Box bqlbn1_ThongTin_Ten = Box.createHorizontalBox();
@@ -166,13 +164,16 @@ public class Gui_Employee extends JFrame {
 		bqlbn2_ChucNang_1
 				.add(btnRemove = new JButton("Xoá", new ImageIcon(getClass().getResource("/ima/if_Save_1493294.png"))));
 		btnRemove.setMaximumSize(getMaximumSize());
+		bqlbn2_ChucNang_1.add(Box.createHorizontalStrut(10));
+		bqlbn2_ChucNang_1.add(btnin = new JButton("In hóa đơn", new ImageIcon(getClass().getResource("/ima/if_receipt_3583272.png"))));
+		btnin.setMaximumSize(getMaximumSize());
 
 		bqlbn2_ChucNang.add(bqlbn2_ChucNang_1);
 
 		Box bqlbn3_Danhsach = Box.createVerticalBox(); // bqlbn3_Danhsach là quản lý cái bảng danh sách
 		bqlbn3_Danhsach.setBorder(BorderFactory.createTitledBorder("Danh sách sản phẩm mua"));
 		Box bqlbn3_Danhsach_1 = Box.createHorizontalBox();
-		String[] headers = "Mã sản phẩm;Tên sản phẩm; Số lượng; Giá; Tiền".split(";");
+		String[] headers = "Mã sản phẩm;Tên sản phẩm; Số lượng; Giá mỗi sản phẩm;Thành Tiền".split(";");
 		tablemodel = new DefaultTableModel(headers, 0);
 		bqlbn3_Danhsach_1.add(new JScrollPane(table = new JTable(tablemodel)));
 		table.setDefaultEditor(Object.class, null);
@@ -318,6 +319,7 @@ public class Gui_Employee extends JFrame {
 		add(bt);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		
 		/////////////////////////////////
 
 		/////////////////////////////////
@@ -325,7 +327,7 @@ public class Gui_Employee extends JFrame {
 		/// LoadTenBacSi();
 		// HienThiThongTinCaNhan();
 	}
-
+	
 	/**
 	 * các hàm xử lý
 	 */
