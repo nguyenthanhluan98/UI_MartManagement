@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+
+
 public class Gui_Manager extends JFrame {
 
 	JButton acc_btnLogout, acc_btnHelp;
@@ -53,6 +56,23 @@ public class Gui_Manager extends JFrame {
 			lblAccNoActive;
 
 	JButton acc_btnAdd_Acc, acc_btnRemove_Acc, acc_btnModify_Acc, acc_btnSave_Acc, acc_btnSearch_Acc;
+	// Quản lí nhân viên
+	private JLabel lblNhanVienID, lblHoNhanVien, lblTenNhanVien, lblSDTNhanVien, lblNSNhanVien, lblDiaChiNhanVien;
+	private JTextField txtNhanVienID, txtHoNhanVien, txtTenNhanVien, txtSDTNhanVien, txtDiaChiNhanVien, txtTimNhanVien;
+//private DatePicker datePicker;
+	private JButton btnThemNV, btnSuaNV, btnLuuNV, btnTimNV, btnXoaNV, btnCapNhat;
+	private JComboBox<String> cbbTimNhanVien;
+	private JTable tableNhanVien;
+	private DefaultTableModel modelNhanVien;
+
+	/* Quan ly kho */
+	JTextField stock_txtGoodtId, stock_txtGoodName, stock_txtQuantity, stock_txtPrice;
+	JLabel stock_lblGoodId, stock_lblGoodName, stock_lblEnterDate, stock_lblQuantity, stock_lblPrice;
+	JDateChooser stock_txtEnterDate;
+	JButton stock_btnAdd, stock_btnRemove, stock_btnModify, stock_btnSave;
+	
+	JTable tableGood;
+	DefaultTableModel tblModelGood;
 
 	public Gui_Manager() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -62,6 +82,11 @@ public class Gui_Manager extends JFrame {
 		setIconImage(new ImageIcon(getClass()
 				.getResource("/ima/if_H_sign_hospital_hospital_sign_hospital__medical__road_sign_1887039.png"))
 						.getImage());
+		// tab
+		tabManager = new JTabbedPane();
+		tabManager.setTabPlacement(JTabbedPane.LEFT);
+
+		//
 		Box acc_bt = Box.createVerticalBox();// Cái này là quản lý chung của cả frame
 		/**
 		 * Cái này là tiêu đ�?
@@ -136,7 +161,6 @@ public class Gui_Manager extends JFrame {
 		grAccStatus.add(radAccActive);
 		grAccStatus.add(radAccNoActive);
 
-		
 		// add khoảng khoảng cách giữa textfield
 		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_Id);
 		acc_bqlbn1_Acc.add(Box.createVerticalStrut(5));
@@ -147,8 +171,6 @@ public class Gui_Manager extends JFrame {
 		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_Start);
 		acc_bqlbn1_Acc.add(Box.createVerticalStrut(5));
 		acc_bqlbn1_Acc.add(acc_bqlbn1_Acc_Status);
-		
-		
 
 		acc_bqlbn1.add(Box.createHorizontalStrut(10));
 		acc_bqlbn.add(acc_bqlbn1);
@@ -179,7 +201,7 @@ public class Gui_Manager extends JFrame {
 		acc_bqlbn2_ChucNang.add(acc_bqlbn2_ChucNang_1);
 
 		Box acc_bqlbn3_Danhsach = Box.createVerticalBox(); // acc_bqlbn3_Danhsach_Acc là quản lý cái bảng danh
-																// sách
+		// sách
 
 		acc_bqlbn3_Danhsach.setBorder(BorderFactory.createTitledBorder("Danh sách nhân viên"));
 		Box acc_bqlbn3_Danhsach_Acc_1 = Box.createHorizontalBox();
@@ -196,11 +218,195 @@ public class Gui_Manager extends JFrame {
 
 		acc_bt.add(acc_bqlbn);
 		add(acc_bt);
+		/// quản li nhan viên
 
-		tabManager = new JTabbedPane();
-		tabManager.addTab("Quản lý nhân viên", acc_bt);
-		tabManager.setTabPlacement(JTabbedPane.LEFT);
+		Box bNhanVien = Box.createVerticalBox();
+		Box bNV1, bNV2, bNV3;
+		Box bNV_TT, bNV_TT1, bNV_TT2, bNV_TT3, bNV_TT4, bNV_TT5, bNV_TT6;
+		Box bNV_TK, bNV_TK1, bNV_CN;
 
+		bNhanVien.add(bNV1 = Box.createHorizontalBox());
+
+		bNV1.add(bNV_TT = Box.createVerticalBox());
+		bNV_TT.setBorder(BorderFactory.createTitledBorder("Thông tin nhân viên"));
+
+		bNV_TT.add(bNV_TT1 = Box.createHorizontalBox());
+		bNV_TT.add(Box.createVerticalStrut(10));
+		bNV_TT1.add(lblNhanVienID = new JLabel("Mã số nhân viên"));
+		bNV_TT1.add(Box.createHorizontalStrut(10));
+		bNV_TT1.add(txtNhanVienID = new JTextField());
+
+		bNV_TT.add(bNV_TT2 = Box.createHorizontalBox());
+		bNV_TT.add(Box.createVerticalStrut(10));
+		bNV_TT2.add(lblHoNhanVien = new JLabel("Họ"));
+		bNV_TT2.add(Box.createHorizontalStrut(10));
+		bNV_TT2.add(txtHoNhanVien = new JTextField());
+
+		bNV_TT.add(bNV_TT3 = Box.createHorizontalBox());
+		bNV_TT.add(Box.createVerticalStrut(10));
+		bNV_TT3.add(lblTenNhanVien = new JLabel("Tên"));
+		bNV_TT3.add(Box.createHorizontalStrut(10));
+		bNV_TT3.add(txtTenNhanVien = new JTextField());
+
+		bNV_TT.add(bNV_TT4 = Box.createHorizontalBox());
+		bNV_TT.add(Box.createVerticalStrut(10));
+		bNV_TT4.add(lblSDTNhanVien = new JLabel("Số điện thoại"));
+		bNV_TT4.add(Box.createHorizontalStrut(10));
+		bNV_TT4.add(txtSDTNhanVien = new JTextField());
+
+		bNV_TT.add(bNV_TT5 = Box.createHorizontalBox());
+		bNV_TT.add(Box.createVerticalStrut(10));
+		bNV_TT5.add(lblDiaChiNhanVien = new JLabel("Địa chỉ"));
+		bNV_TT5.add(Box.createHorizontalStrut(10));
+		bNV_TT5.add(txtDiaChiNhanVien = new JTextField());
+
+		bNV_TT.add(bNV_TT6 = Box.createHorizontalBox());
+		bNV_TT6.add(lblNSNhanVien = new JLabel("Ngày sinh"));
+		bNV_TT6.add(Box.createHorizontalStrut(10));
+		// bNV_TT6.add(datePicker = new DatePicker());
+
+		lblTenNhanVien.setPreferredSize(lblNhanVienID.getPreferredSize());
+		lblDiaChiNhanVien.setPreferredSize(lblNhanVienID.getPreferredSize());
+		lblHoNhanVien.setPreferredSize(lblNhanVienID.getPreferredSize());
+		lblSDTNhanVien.setPreferredSize(lblNhanVienID.getPreferredSize());
+		lblNSNhanVien.setPreferredSize(lblNhanVienID.getPreferredSize());
+
+		// ***********************
+		bNV1.add(bNV_TK = Box.createVerticalBox());
+		bNV_TK.setMinimumSize(getMinimumSize());
+		bNV_TK.setBorder(BorderFactory.createTitledBorder("Tìm kiếm nhân viên"));
+		bNV_TK.add(bNV_TK1 = Box.createHorizontalBox());
+		String[] timKiemNV = { "Tìm theo ID", "Tìm theo tên", "Tìm theo số điện thoại" };
+		bNV_TK1.add(cbbTimNhanVien = new JComboBox<String>(timKiemNV));
+		bNV_TK1.add(Box.createHorizontalStrut(10));
+		bNV_TK1.add(txtTimNhanVien = new JTextField(1));
+		bNV_TK1.add(Box.createHorizontalStrut(10));
+		bNV_TK1.add(btnTimNV = new JButton("Tìm",
+				new ImageIcon(getClass().getResource("/ima/if_search_magnifying_glass_find_103857.png"))));
+		bNV_TK.add(Box.createVerticalStrut(185));
+
+		// ***********************
+		bNhanVien.add(bNV2 = Box.createVerticalBox());
+		bNV2.add(bNV_CN = Box.createHorizontalBox());
+		bNV2.setBorder(BorderFactory.createTitledBorder("Chức năng"));
+		bNV_CN.add(stock_btnAdd = new JButton("Thêm", new ImageIcon(getClass().getResource("/ima/if_7_330410.png"))));
+		bNV_CN.add(Box.createHorizontalStrut(10));
+		bNV_CN.add(stock_btnModify = new JButton("Sửa",
+				new ImageIcon(getClass().getResource("/ima/if_brush-pencil_1055103.png"))));
+		bNV_CN.add(Box.createHorizontalStrut(10));
+		bNV_CN.add(
+				stock_btnSave = new JButton("Lưu", new ImageIcon(getClass().getResource("/ima/if_Save_1493294.png"))));
+		bNV_CN.add(Box.createHorizontalStrut(10));
+
+		bNV_CN.add(Box.createHorizontalStrut(10));
+		bNV_CN.add(stock_btnRemove = new JButton("Xóa",
+				new ImageIcon(getClass().getResource("/ima/if_user-trash_118932.png"))));
+
+		// ***********************
+		bNhanVien.add(bNV3 = Box.createVerticalBox());
+		bNV3.setBorder(BorderFactory.createTitledBorder("Danh sách nhân viên"));
+
+		String[] headersNV = "Mã số nhân viên;Họ;Tên;Số điện thoại;Địa chỉ;Ngày sinh".split(";");
+		modelNhanVien = new DefaultTableModel(headersNV, 0);
+		JScrollPane scrollNV = new JScrollPane();
+		scrollNV.setViewportView(tableNhanVien = new JTable(modelNhanVien));
+		tableNhanVien.setRowHeight(20);
+		tableNhanVien.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		bNV3.add(scrollNV);
+
+		// form kho hang
+
+		Box bStock = Box.createVerticalBox();
+
+		Box bStock_ThongTin, bStock_ChucNang, bStock_DanhSach, bStock_CN;
+		Box bStock_TT, bStock_TT1, bStock_TT2, bStock_TT3, bStock_TT4, bStock_TT5;
+
+		bStock.add(bStock_ThongTin = Box.createVerticalBox());
+
+		bStock_ThongTin.setBorder(BorderFactory.createTitledBorder("Thông tin hàng hóa"));
+
+		bStock_ThongTin.add(bStock_TT1 = Box.createHorizontalBox());
+		bStock_ThongTin.add(Box.createVerticalStrut(10));
+		bStock_TT1.add(stock_lblGoodId = new JLabel("Mã sản phẩm"));
+		bStock_TT1.add(Box.createHorizontalStrut(10));
+		bStock_TT1.add(stock_txtGoodtId = new JTextField());
+
+		bStock_ThongTin.add(bStock_TT2 = Box.createHorizontalBox());
+		bStock_ThongTin.add(Box.createVerticalStrut(10));
+		bStock_TT2.add(stock_lblGoodName = new JLabel("Tên sản phẩm"));
+		bStock_TT2.add(Box.createHorizontalStrut(10));
+		bStock_TT2.add(stock_txtGoodName = new JTextField());
+
+		bStock_ThongTin.add(bStock_TT3 = Box.createHorizontalBox());
+		bStock_ThongTin.add(Box.createVerticalStrut(10));
+		bStock_TT3.add(stock_lblEnterDate = new JLabel("Ngày nhập"));
+		bStock_TT3.add(Box.createHorizontalStrut(10));
+		bStock_TT3.add(stock_txtEnterDate = new JDateChooser());
+
+		bStock_ThongTin.add(bStock_TT4 = Box.createHorizontalBox());
+		bStock_ThongTin.add(Box.createVerticalStrut(10));
+		bStock_TT4.add(stock_lblQuantity = new JLabel("Số lượng"));
+		bStock_TT4.add(Box.createHorizontalStrut(10));
+		bStock_TT4.add(stock_txtQuantity = new JTextField());
+
+		bStock_ThongTin.add(bStock_TT5 = Box.createHorizontalBox());
+		bStock_ThongTin.add(Box.createVerticalStrut(10));
+		bStock_TT5.add(stock_lblPrice = new JLabel("Giá"));
+		bStock_TT5.add(Box.createHorizontalStrut(10));
+		bStock_TT5.add(stock_txtPrice = new JTextField());
+		
+		// tree
+		DynamicTree treeGoods;
+		treeGoods = new DynamicTree();
+		
+		treeGoods.setPreferredSize(new Dimension(250, 150));
+		bStock.add(treeGoods);
+		//add(treeGoods, BorderLayout.WEST);
+
+		///
+
+		bStock.add(bStock_ChucNang = Box.createVerticalBox());
+
+		bStock_ChucNang.add(bStock_CN = Box.createHorizontalBox());
+		bStock_ChucNang.setBorder(BorderFactory.createTitledBorder("Chức năng"));
+
+		bStock_CN
+				.add(stock_btnAdd = new JButton("Thêm", new ImageIcon(getClass().getResource("/ima/if_7_330410.png"))));
+		bStock_CN.add(Box.createHorizontalStrut(10));
+		bStock_CN.add(btnSuaNV = new JButton("Sửa",
+				new ImageIcon(getClass().getResource("/ima/if_brush-pencil_1055103.png"))));
+		bStock_CN.add(Box.createHorizontalStrut(10));
+		bStock_CN.add(btnLuuNV = new JButton("Lưu", new ImageIcon(getClass().getResource("/ima/if_Save_1493294.png"))));
+		bStock_CN.add(Box.createHorizontalStrut(10));
+		bStock_CN.add(btnCapNhat = new JButton("Tải lại danh sách",
+				new ImageIcon(getClass().getResource("/ima/if_--07_1720774.png"))));
+		bStock_CN.add(Box.createHorizontalStrut(10));
+		bStock_CN.add(
+				btnXoaNV = new JButton("Xóa", new ImageIcon(getClass().getResource("/ima/if_user-trash_118932.png"))));
+
+		// ***********************
+		bStock.add(bStock_DanhSach = Box.createVerticalBox());
+		bStock_DanhSach.setBorder(BorderFactory.createTitledBorder("Danh sách nhân viên"));
+
+		String[] headersStock = "Mã hàng hóa, Tên hàng hóa, Ngày nhập, Số lượng, Giá".split(";");
+		tblModelGood = new DefaultTableModel(headersNV, 0);
+		JScrollPane scrollStock = new JScrollPane();
+		scrollStock.setViewportView(tableGood = new JTable(tblModelGood));
+		tableGood.setRowHeight(20);
+		tableGood.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		bStock_DanhSach.add(scrollStock);
+
+		// Box bNV_TT, bNV_TT1, bNV_TT2, bNV_TT3, bNV_TT4, bNV_TT5, bNV_TT6;
+		// Box bNV_TK, bNV_TK1, bStock_CN;
+
+		tabManager.addTab("Quản lý tài khoản", new ImageIcon(getClass().getResource("/ima/if_Account_1891016.png")),
+				acc_bt);
+
+		tabManager.addTab("Quản lý nhân viên", new ImageIcon(getClass().getResource("/ima/if_group_318580.png")),
+				bNhanVien);
+		tabManager.addTab("Quản lý kho", new ImageIcon(getClass().getResource("/ima/if_group_318580.png")), bStock);
+		
+		add(tabManager, BorderLayout.CENTER);
 		add(tabManager);
 	}
 
